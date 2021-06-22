@@ -1,0 +1,45 @@
+---
+title: "Report on Heights"
+author: "Ladan Foroughi"
+date: "21/06/2021"
+output:
+  word_document: default
+  github.documents: default
+---
+The Heigth dataset is in dslab package in R that is used in this report. In this datasets the height based on different gender (Male and Female) are meaured. The 6 rows of these datasets are shown below:
+```{r , include=FALSE, echo=FALSE}
+## Variation of average of Heights based on Gender
+library(tidyverse)
+library(dslabs)
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+```
+```{r, echo=FALSE}
+data(heights)
+options(digits = 3)
+a <- head(heights)
+kable(a , "pandoc" , caption = "Heights Datasets")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r bar, echo=FALSE}
+# Average and standard deviation of height based on sex
+sex_avg_height <- heights %>% 
+  group_by(sex) %>% 
+  summarize(Average_of_Height = mean(height), 
+            standard_deviation = sd(height)) 
+kable(sex_avg_height ,"pandoc", caption = "Average of Height in Female/Male group")
+
+# plot of the sex percentage 
+sex_avg_height %>% group_by(sex) %>%
+  ggplot(aes(sex,Average_of_Height)) + 
+  geom_bar(stat= "identity") + 
+  ggtitle("Average of Female and Male in Heights dataset")
+```
+
+The end 
+
